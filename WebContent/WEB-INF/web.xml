@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>jspPro</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <!-- 
+  Deployment Descrptor == DD파일 == web.xml
+    배포 설명자
+   -->  
+   
+   <!-- 서블릿 등록 -->
+   <servlet>
+   	<servlet-name>now</servlet-name>	<!-- 내가 부여한 이름 -->
+   	<servlet-class>days01.NowServlet</servlet-class>
+   </servlet>
+   
+   <!-- 밖에있는 서블릿 맵핑 시키기 -->
+   <servlet-mapping>
+   	<servlet-name>now</servlet-name>
+   	<url-pattern>/days01/now</url-pattern>
+   </servlet-mapping>
+   
+   
+   
+   
+   <!-- 최초 요청이 있어야 서블릿 객체 생성되지만 톰캣 서버가 시작될 떄 서블릿 객체 생성 -->
+   <servlet>
+   	<servlet-name>dbcp</servlet-name>	
+   	<servlet-class>days01.DBCPInit</servlet-class>
+   	<!-- 오라클 디비 연동 -->
+   	<init-param>				
+   		<param-name>jdbcdriver</param-name>
+   		<param-value>oracle.jdbc.driver.OracleDriver</param-value>
+   	</init-param>
+   	
+   	<init-param>				
+   		<param-name>url</param-name>
+   		<param-value>jdbc:oracle:thin:@localhost:1521:xe</param-value>
+   	</init-param>
+   	
+   	<init-param>				
+   		<param-name>user</param-name>
+   		<param-value>scott</param-value>
+   	</init-param>
+   	
+   	<init-param>				
+   		<param-name>password</param-name>
+   		<param-value>tiger</param-value>
+   	</init-param>
+   	
+   	
+   	<!-- <load-on-startup>1</load-on-startup> --> 		<!-- load-on-startup: 서블릿 객체 생성 순서 설정 -->
+   </servlet>
+   
+    <servlet-mapping>
+   	<servlet-name>dbcp</servlet-name>
+   	<url-pattern>/init</url-pattern>
+   </servlet-mapping>
+   
+   
+   
+</web-app>
