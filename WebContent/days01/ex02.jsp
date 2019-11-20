@@ -34,6 +34,7 @@
 	String contextPath = request.getContextPath();				// 컨택스 패스 얻어오는 방법!!!!
 %>
 
+
 <a href="hello">HelloServlet 호출</a><br />
 <a href="/days01/hello">HelloServlet 호출</a><br />
 <a href="/jspPro/days01/hello">HelloServlet 호출</a><br />

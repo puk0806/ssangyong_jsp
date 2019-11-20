@@ -4,22 +4,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>chanho - 2019. 11. 19. 오후 3:02:17</title>
+<title>chanho - 2019. 11. 20. 오전 9:33:14</title>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <style>
 </style>
 </head>
 <body>
-
-
-<!-- p 506 서블릿 로딩과 초기화
-항상 DB연동해서 처리하는 작업 : 서블릿 선언 DBCPInit 클래스 추가
-
--->
-
-<a href="/jspPro/init">DBCD 호출</a>
-
-<form action=""></form>
+ context root or context path 를 얻어와서 출력하는 JSP 코딩
+<%
+	String contextPath = request.getContextPath();	
+	out.print(contextPath);
+%>
 
 
 <script>

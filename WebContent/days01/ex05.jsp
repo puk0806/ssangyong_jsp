@@ -12,7 +12,7 @@
 <body>
 <!-- 
 p514 URL패턴 매핑 규칙
-서블릿 생성 + (web.xml 매핑or@WebServlet 어노테이셔매핑)
+서블릿 생성 + (web.xml 매핑 or @WebServlet 어노테이셔매핑)
 
 웹 브라우저[http://localhost/jspPro/요청URL]
 [url-pattern 사용] 규칙

@@ -63,6 +63,14 @@
    	<url-pattern>/init</url-pattern>
    </servlet-mapping>
    
+   <servlet>
+   	<servlet-name>test01</servlet-name>
+   	<servlet-class>days02.Test01</servlet-class>
+   </servlet>
    
+   <servlet-mapping>
+   	<servlet-name>test01</servlet-name>
+   	<url-pattern>/test/hap</url-pattern>
+   </servlet-mapping>
    
 </web-app>
