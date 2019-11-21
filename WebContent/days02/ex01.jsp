@@ -9,7 +9,6 @@
 %>
 <%
 	// [scriptlet] 자바코딩
-
 	try{
 		n1 = Integer.parseInt(request.getParameter("num1"));
 		n2 = Integer.parseInt(request.getParameter("num2"));

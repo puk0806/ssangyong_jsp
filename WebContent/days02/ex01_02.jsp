@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+ <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%!
 	// 전역 변수로 선언하기
 	int n1;
@@ -47,6 +47,7 @@
 		<option value="/" >/</option>
 		<option value="%" >%</option>
 	</select>
+	
 	
 	<input type="text" name = "num2" autofocus="autofocus"  value="<%=n2 %>"/>
 </form>

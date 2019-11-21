@@ -73,4 +73,16 @@
    	<url-pattern>/test/hap</url-pattern>
    </servlet-mapping>
    
+      
+   <servlet>
+   	<servlet-name>forwardServlet</servlet-name>
+   	<servlet-class>days03.ForWard</servlet-class>
+   </servlet>
+   
+   <servlet-mapping>
+   	<servlet-name>forwardServlet</servlet-name>
+   	<url-pattern>/forward</url-pattern>
+   </servlet-mapping>
+   
+   
 </web-app>
