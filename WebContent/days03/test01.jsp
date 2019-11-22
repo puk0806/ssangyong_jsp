@@ -22,6 +22,7 @@ p264 2.2 EL의 기본 객체
 pogeContext == JSP pageContext 동일하다.
 -->
 
+
 ${pageContext.request.contextPath}<br>
 ${pageContext.request.remoteAddr}<br>
 ${pageContext.request.method}<br>

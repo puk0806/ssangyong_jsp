@@ -49,7 +49,7 @@ public class Dept extends HttpServlet {
 				String dname,loc;
 				DeptDTO dto;
 				list = new ArrayList<>();
-				 
+				
 				do{
 					dto = new DeptDTO();
 					deptno = rs.getInt("deptno");

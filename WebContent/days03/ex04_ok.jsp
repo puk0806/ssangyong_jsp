@@ -12,7 +12,6 @@
 <body>
 
 <h3>ex04_ok.jsp</h3>
-
 <%
 	request.setCharacterEncoding("utf-8");		// 받을때 디코딩 하는 방법 설정
 	response.setContentType("text/html; charset=UTF-8");	// 보낼때 인코딩 하는 방법 설정

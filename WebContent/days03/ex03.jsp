@@ -22,6 +22,7 @@ $(function(){
 		// alert("test");
 		var msg = $("#msg").val();
 		$(this).attr("href",function(i,val){
+			// alert(val);	//ex03_02.jsp
 			return val+"?msg="+msg;
 		});
 		// event.preventDefault();		// 기본 이벤트 제거
