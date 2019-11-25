@@ -15,10 +15,12 @@
 <%
 request.setCharacterEncoding("utf-8");		// 받을때 디코딩 하는 방법 설정
 response.setContentType("text/html; charset=UTF-8");	// 보낼때 인코딩 하는 방법 설정
+
+String address  = request.getParameter("address");
 %>
 <h3>test04_02.jsp</h3>
 <form action="test04_03.jsp" method="post">
-	주소 : <input type="text" name="address" value="서울 강남 한독빌딩 8층" ><br>
+	주소 : <input type="text" name="address" value="<%=address %>" ><br>
 	<input type="button" value="이전" id="prev">
 	<input type="submit" value="다음" >
 </form>
@@ -38,9 +40,7 @@ $(function(){
 		// history.go(-1);	
 		// history.back();
 		location.href = "test04.jsp";
-		
-	});
-	
+	});	
 });
 </script>
 </body>

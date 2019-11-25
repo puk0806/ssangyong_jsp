@@ -84,5 +84,25 @@
    	<url-pattern>/forward</url-pattern>
    </servlet-mapping>
    
+   <servlet>
+	<servlet-name>deptServlet</servlet-name>
+	<servlet-class>days05.DeptServlet</servlet-class>
+   </servlet>
+   
+   <servlet-mapping>
+   	<servlet-name>deptServlet</servlet-name>
+   	<url-pattern>/days05/test/dept.do</url-pattern>
+   </servlet-mapping>
+   
+      <servlet>
+	<servlet-name>empServlet</servlet-name>
+	<servlet-class>days05.EmpServlet</servlet-class>
+   </servlet>
+   
+   <servlet-mapping>
+   	<servlet-name>empServlet</servlet-name>
+   	<url-pattern>/days05/test/employee.do</url-pattern>
+   </servlet-mapping>
+   
    
 </web-app>
