@@ -34,11 +34,15 @@
 	    		<li><a href="#tabs-${dto.deptno}">${dto.dname }(${dto.empCnt })명</a></li>
 		    </c:forEach>
 		  </ul>	
+		  
+		  
+		  
 		   <div id="tabs-${dto.deptno } ">
 		  	<p>
 		  		<c:forEach items="${map}" var="entry">
 		  			<div id="tabs-${entry.key.deptno }">
 		  				<c:choose>
+		  					
 		  					<c:when test="${not empty entry.value }">	<!-- entry값이 존재한다면 -->
 		  						<c:forEach items="${entry.value }" var="empDTO">
 		  							<li>
@@ -46,6 +50,7 @@
 			  							${empDTO.ename },
 		  							</li>		  						
 		  						</c:forEach>
+		  					
 		  					</c:when>
 		  					<c:otherwise>								<!-- entry 값이 존재하지 않는다면 -->
 		  						존재 하지 않습니다.

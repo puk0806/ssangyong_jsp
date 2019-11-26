@@ -19,6 +19,8 @@
     .ui-dialog .ui-state-error { padding: .3em; }
     .validateTips { border: 1px solid transparent; padding: 0.3em; }
   </style>
+  
+  
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script>
@@ -115,6 +117,11 @@
   </script>
 </head>
 <body>
+<!-- 
+모달과 모달리스트 차이
+모달 : 창이 띄어지면 뒤에 화면을 클릭할 수 없다.
+모달리스트 : 창이 띄어져도 뒤에 화면을 클릭할 수 있다. 
+-->
  
 <div id="dialog-form" title="Create new user">
   <p class="validateTips">All form fields are required.</p>
@@ -144,6 +151,7 @@
         <th>Email</th>
         <th>Password</th>
       </tr>
+    
     </thead>
     <tbody>
       <tr>

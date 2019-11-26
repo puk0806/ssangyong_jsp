@@ -75,9 +75,10 @@ public class MapServlet extends HttpServlet {
 				Date hiredate;
 
 				ArrayList<EmpDTO> list = null;
+				list = new ArrayList<EmpDTO>();
 				if (rsEmpt.next()) {
 					
-					list = new ArrayList<EmpDTO>();
+					
 					EmpDTO temp = null;
 					do {
 						empno = rsEmpt.getInt("empno");
@@ -91,10 +92,14 @@ public class MapServlet extends HttpServlet {
 						temp = new EmpDTO(empno, ename, job, mgr, hiredate, sal, comm, deptno);
 
 						list.add(temp);
+						
 					} while (rsEmpt.next());
 
-					map.put(dept, list);
+					
 				}
+				map.put(dept, list);
+				System.out.println(map.size());
+				
 			}
 			
 			
