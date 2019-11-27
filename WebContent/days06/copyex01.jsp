@@ -20,6 +20,7 @@ public String arrayJoin(String glue, String array[]) {
     return result; // "10,20"
 }
 %>
+
 <%
 	String[] deptnos = request.getParameterValues("deptno");
 	// request.setAttribute("deptnos", deptnos);
@@ -115,9 +116,8 @@ public String arrayJoin(String glue, String array[]) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>chanho - 2019. 11. 26. 오전 8:34:46</title>
+<title>chanho - 2019. 11. 27. 오전 8:22:11</title>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<!-- checkbox style -->
 <style>
 /* The container */
 .container {
@@ -235,132 +235,36 @@ public String arrayJoin(String glue, String array[]) {
   background-color: #ddd;
   color: black;
 }
-
-
 </style>
 </head>
 <body>
-<form action="/jspPro/days06/ex01.jsp">
-<h3>부서 선택 :</h3>  
-
-<label class="container"> 모두 선택
- <input type="checkbox" id="allDeptno" >
- <span class="checkmark"></span>
-</label>
-
-<c:forEach items="${deptList }" var="dto">
-  <label class="container">
-	  <input type="checkbox" name="deptno"  value="${dto.deptno}"> ${dto.dname }
-	  <span class="checkmark"></span>
-  </label>
-</c:forEach>
-
-
-<button type="submit" class="exec" id="dept_ok">확인 버튼</button>
+<form action="">
+<h3>부서선택</h3>
+	<label class="container">
+		모두선택
+		<input type="checkbox" id="allDeptno" />
+		<span class="checkmark"></span>	
+	</label>
+	
+	<c:forEach items="${deptList }" var="dto">
+		<label class="container">
+			<input type="checkbox" name="deptno" value="${dto.deptno }"/>${dto.dname }
+			<span class="checkmark"></span>
+		</label>
+	</c:forEach>
+	<button type="submit" class="exec" id="dept_ok">확인버튼</button>
 </form>
 
-<h3>사원 출력</h3>
-<table id="employees">
-  <thead>
-  <tr>
-    <th><input type="checkbox" /></th>
-    <th>no</th>
-    <th>deptno</th>
-    <th>dname</th>
-    <th>empno</th>
-    <th>ename</th>
-    <th>mgr</th>
-    <th>job</th>
-    <th>hiredate</th>
-    <th>sal</th>
-    <th>comm</th>
-    <th>pay</th>
-  </tr>
-  </thead>
-  <tbody>
-  
-  <c:choose>
-    <c:when test="${ empty empList }">
-       <tr>
-	     <td colspan="12" style="height: 100px;text-align: center;">사원이 존재하지 않습니다.</td>
-	   </tr>
-    </c:when>
-    <c:otherwise>
-       <c:forEach items="${ empList }" var="dto" varStatus="status">
-         <tr>
-           <td><input type="checkbox" value="${ dto.empno }" name="empno"/></td>
-		   <td>${status.count}</td>		<!-- foreach문에서 순서 번호 주기 -->
-		   <td>${ dto.deptno }</td>
-		   <td>${ dto.dname }</td>
-		   <td>${ dto.empno }</td>
-		   <td>${ dto.ename }</td>
-		   <td>${ dto.mgr }</td>
-		   <td>
-		   <!-- 직업이 똑같은거 선택하게 하기  -->
-
-			<!--	풀이 1 --> 
-		   	<select id="${dto.empno }">
-		   		<c:forEach items="${jobList }" var="job">
-		   			
-		   			<%-- <option value="${job }" ${dto.job == job ? "selected" : ""}>${job }</option> --%>
-		   			<c:choose>
-		   				<c:when test="${ dto.job eq job}">			
-		   					<option value="${job }" selected="selected">${job }</option>
-		   				</c:when>
-		   				<c:otherwise>
-		   					<option value="${job }" >${job }</option>
-		   				</c:otherwise>
-		   			</c:choose>
-		   		</c:forEach>
-		   	</select>
-		   	 
-		   	 <%-- 풀이 2 
-		   	 
-		   	 <div id="demo">
-		   		<h3>types of job</h3>
-			   		<select class="job">
-			   			<c:forEach items="${jobList }" var="job">
-			   				<option value="${job }">${job }</option>
-			   			</c:forEach>
-			   		</select>
-
-		   	 </div>
- 			--%>
-<!-- 
-  <option>ANALYST</option>
-  <option>ARTIST</option>
-  <option>CLERK</option>
-  <option>MANAGER</option>
-  <option>PRESIDENT</option>
-  <option>SALESMAN</option>
-   -->
-
-		   </td>   
-		   <td>${ dto.hiredate }</td>
-		   <td>${ dto.sal }</td>
-		   <td>		   
-		   ${ dto.comm }
-		   </td>
-		   <td>${ dto.pay }</td>
-		</tr>
-       </c:forEach>
-    </c:otherwise>
-  </c:choose>  
-  </tbody>
-  <tfoot>
-    <tr>
-      <td colspan="12">
-	     <form action="ex01_delete_ok.jsp" id="form1">
-	          <input type="hidden" id="h_empno" name="empno" value="" /> 
-	          <input type="button" id="delbtn" value="delete" />
-	      </form>
-      </td>
-    </tr>
-  </tfoot>
-</table>
-
+<!-- 부서 선택 관련 스크립트 -->
 <script>
-// '모두선택'체크 선택박스 선택하면 모두 선택되는 스크립트
+	// 모두 선택 체크 버튼 눌렀을때 -> 부서 체크 상태 변화
+	/* $("#allDeptno").change(function(){
+		if($("#allDeptno").is(":checked")){
+			$(".container :checkebox[name='deptno']").prop("checked","checked");
+		}else{
+			$(".container :checkbox[name='deptno']").prop("checked","");
+		}
+	}); */
 	$("#allDeptno").change(function(){
 		if($("#allDeptno").is(":checked")){
 			$(".container :checkbox[name='deptno']").prop("checked","checked");	
@@ -369,90 +273,79 @@ public String arrayJoin(String glue, String array[]) {
 		}
 	});
 	
-	// 체크 선택박스에 의해서 '모두선택' 체크 바뀌는 스크립트
-	$(":checkbox[name='deptno']").change(function(){
+	// 부서 체크 버튼 눌럿을때 -> 모두 선택 체크 상태 변화
+	$(".container :checkbox[name='deptno']").change(function(){
 		var cnt = $(":checkbox[name='deptno']").length;
 		var checkCnt = $(":checkbox[name='deptno']:checked").length;
 		if(checkCnt == cnt){
 			$("#allDeptno").prop("checked","checked");
 		}else{
-			$("#allDeptno").prop("checked","");
+			$("#allDeptno").prop("checked","");	
 		}
 	});
-</script>
-<script>
-	// 확인버튼 눌러도 남겨두는 스크립트
-	var url = location.href;
-		var pattern = /[?&]/;
-		var result = url.split(pattern);			// 패턴으로 자르기
-		for (var i = 1; i < result.length; i++) {
-		   if(result[i].indexOf("deptno") != -1) {
-		      deptno = result[i].replace("deptno=",""); // 10,30 번만남음
-		      $(":checkbox[value="+deptno+"]").prop("checked",true);
-		   }
-		}
-</script>
-<script>
-	// 직업 맞게 선택되는 스크립트
-	/* 	
-		풀이2
-	$("employees tbody tr").each(function(){
-		var job =$('td:eq(7)',this).html();		// td의 7번째(job의 위치)
-		var empno = $('td:eq(4)',this).html();	// empno값 가져오기
-		
-		var cmb = $(".job")						// job클래스 복사
-					.clone()
-					.removeClass("job")
-					.prop("id",empno)
-					.val(job);
-		$("td:eq(7)",this)
-					.empnty()
-					.prepend(cmb);		// prepend: 자식으로 추가
-		
-	}); 
-	*/
 	
-	// 각 tr 태그 안의 부서select 변경시 실제 DB도 수정
-	$("#employees tbody tr select").change(function(){
-		var empno = $(this).attr("id");
-		var job = $(this).val();
-		// alert(job);
-		var deptnos = location.href.substr(location.href.indexOf("?")+1);		// 뒤에 deptno들 잘라오기
-		// alert(deptnos);
-		var params = "empno="+empno+"&job="+job+"&"+deptnos;
-		alert(params);
-		location.href="/jspPro/days06/ex01_edit_ok.jsp?"+params;
-	});
+	
 </script>
 
-<script>
-	// 체크된거 val로 넣어주는 스크립트
-	$(":checkbox[name=empno]").change(function(){
-		var del_empnos =[];
-		$(":checkbox[name=empno]:checked").each(function(){
-			del_empnos.push($(this).val());	
-		});
-		$(":hidden").val(del_empnos.join(","));
-		
-	});
-</script>
-
-<script>
-	// delete해도 체크 버튼 유지되게하는 스크립트
-	$("#delbtn").click(function(){
-		var url = $("#form1").attr("action");
-		var deptnos = location.href.substr(location.href.indexOf("?"));
-		url += deptnos;
-		url +="&empno="+$("#h_empno").val();
-		alert(url);
-		// $(this).attr("action",url);
-		location.href=url;
-		
-	});
-</script>
-
-
-
+<h3>사원 출력</h3>
+<table id="employees">
+	<thead>
+		<tr>
+			<th><input type="checkbox" /></th>
+		    <th>no</th>
+		    <th>deptno</th>
+		    <th>dname</th>
+		    <th>empno</th>
+		    <th>ename</th>
+		    <th>mgr</th>
+		    <th>job</th>
+		    <th>hiredate</th>
+		    <th>sal</th>
+		    <th>comm</th>
+		    <th>pay</th>
+		</tr>
+	</thead>
+	<tbody>
+		<c:choose>
+			<c:when test="${empty empList }">
+				<tr>
+					<td colspan="12" style="height: 100px;text-align: center;">사원이 존재하지 않습니다.</td>
+				</tr>
+			</c:when>
+			<c:otherwise>
+				<c:forEach items="${empList }" var="dto" varStatus="status">
+					<tr>
+						<td><input type="checkbox" value="${ dto.empno }" name="empno"/></td>
+						<td>${status.count}</td>		<!-- foreach문에서 순서 번호 주기 -->
+						<td>${ dto.deptno }</td>
+						<td>${ dto.dname }</td>
+						<td>${ dto.empno }</td>
+						<td>${ dto.ename }</td>
+						<td>${ dto.mgr }</td>
+						<td>
+							<select id="${dto.empno }">
+								<c:forEach items="jobList" var="job">
+									<c:choose>
+										<c:when test="${dto.job eq job }">
+											<option value="${job }" selected="selected">${job }</option>
+										</c:when>
+										<c:otherwise>
+											<option value="${job }">${job } </option>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</select>
+						</td>
+						<td>${ dto.hiredate }</td>
+			   			<td>${ dto.sal }</td>
+			   			<td>${ dto.comm }</td>
+			   			<td>${ dto.pay }</td>
+			   		</tr>		
+				</c:forEach>
+			</c:otherwise>
+		</c:choose>
+	</tbody>
+</table>
 
 </body>
 </html>

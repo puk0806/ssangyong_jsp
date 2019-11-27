@@ -10,7 +10,9 @@
 <style>
 </style>
 </head>
-<body>\
+<body>
+
+
 
 <!-- 
 1. CSTVBOARD 테이블 생성
@@ -23,11 +25,10 @@
 -->
 
 <!-- get 방식 Write.java 서브릿 호출 -->
-<a href="/jspPro/cstvsboard/write.htm">게시글 쓰기(Write서블릿 호출)</a>
+<a href="/jspPro/cstvsboard/write.htm">게시글 쓰기(Write서블릿 호출)</a> <br />
+<a href="/jspPro/cstvsboard/list.htm">게시글 목록(List서블릿 호출)</a>
 
 
-<script>
-$(function(){});
-</script>
+
 </body>
 </html>

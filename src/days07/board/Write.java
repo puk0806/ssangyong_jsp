@@ -16,7 +16,6 @@ import com.util.DBConn;
 @WebServlet("/cstvsboard/write.htm")
 public class Write extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
     
     public Write() {
         super();
@@ -47,6 +46,7 @@ public class Write extends HttpServlet {
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String tag = request.getParameter("tag");
+		
 		//
 		BoardDTO boardDto = new BoardDTO();
 			boardDto.setWriter(writer);
@@ -67,7 +67,7 @@ public class Write extends HttpServlet {
 			
 			con = DBConn.getConnection();
 			pstmt = con.prepareStatement(sql);			
-			//
+						
 			pstmt.setString(1, boardDto.getWriter());
 			pstmt.setString(2, boardDto.getPwd());
 			pstmt.setString(3, boardDto.getEmail());
@@ -86,7 +86,7 @@ public class Write extends HttpServlet {
 		
 		// 글 목록 페이지 이동
 		//     /board/list GET요청 -> List.java -> days05/list.jsp 응답
-		String location="/jspPro/cstvboard/list.htm";		
+		String location="/jspPro/cstvsboard/list.htm";		
 		if( resultCnt == 1 ) {			location += "?write=success";		}
 		response.sendRedirect(location);		
 	}
