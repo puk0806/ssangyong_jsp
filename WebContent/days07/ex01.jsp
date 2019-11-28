@@ -12,8 +12,6 @@
 </head>
 <body>
 
-
-
 <!-- 
 1. CSTVBOARD 테이블 생성
 2. SEQ_CSTVSBOARD 시퀀스 생성

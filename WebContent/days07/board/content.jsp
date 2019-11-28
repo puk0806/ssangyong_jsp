@@ -61,9 +61,9 @@
    </tr>
    <tr>
        <td colspan="4" align="center">
-           <a href="/jspPro/cstvsboard/edit.htm?seq=${ dto.seq }" id="editLink">수정하기</a>
-           <a href="/jspPro/cstvsboard/delete.htm?seq=${ dto.seq }" id="deleteLink">삭제하기</a>
-           <a href="/jspPro/cstvsboard/list.htm" id="homeLink">Home</a>
+           <a class="btn btn-info" href="/jspPro/cstvsboard/edit.htm?seq=${ dto.seq }" id="editLink">수정하기</a>
+           <a class="btn btn-info" href="/jspPro/cstvsboard/delete.htm?seq=${ dto.seq }" id="deleteLink">삭제하기</a>
+           <a class="btn btn-info" href="/jspPro/cstvsboard/list.htm?&searchCondition=${ param.searchCondition }&searchWord=${param.searchWord }&currentPage=${ param.currentPage }" id="homeLink">Home</a>
            
            <input type="button" id="btnModalDelete" value="모달창으로 글 삭제">       
            

@@ -19,150 +19,201 @@ import com.util.DBConn;
 @WebServlet("/cstvsboard/list.htm")
 public class List extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-   
-    public List() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	
+	public List() {
+		super();
+	}
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		// 게시글 가져오기
-		// jps/cstvsboard/list.htm					null
-		// jps/cstvsboard/list.htm?currentPage		""
-		// jps/cstvsboard/list.htm?currentPage=2		2
-		String pCurrentPage = request.getParameter("currentPage");
-		int currentPage = pCurrentPage == null ? 1: Integer.parseInt(pCurrentPage);
+		//System.out.println("> List.doGet() 호출됨...");
+		//   /jspPro/cstvsboard/list.htm                null
+		//   /jspPro/cstvsboard/list.htm?currentPage    ""
+		//  /jspPro/cstvsboard/list.htm?currentPage=2   "2"
+		String pCurrentPage = request.getParameter("currentPage");		
+		int currentPage = pCurrentPage == null ?  1 : Integer.parseInt(pCurrentPage);
+request.setAttribute("currentPage", currentPage);
+		// 1. 검색어(searchWord), 검색조건(searchCondition) 
+		int searchCondition = Integer.parseInt( 
+				request.getParameter("searchCondition") ==null?
+						"1": request.getParameter("searchCondition") );
+request.setAttribute("searchCondition", searchCondition);		
+		String searchWord = request.getParameter("searchWord")  ;
+request.setAttribute("searchWord", searchWord);
+
+		if( searchWord == null || searchWord.equals("") ) searchWord ="*";
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<BoardDTO> list = null;
-		
-		request.setAttribute("list", list);
-		
 		String sql = " select *                                                     ";
-	    sql+=     " from (                                                       ";
+		sql+=     " from (                                                       ";
 		sql+=   "     select rownum no, t.*                                    ";
 		sql+=   "     from (                                                   ";
-		sql+=   "         select  seq, writer, email, title, readed, writedate      ";
-		sql+=   "         from cstvsboard                                    ";
-		 
+		sql+=   "         select  seq, writer, email, title, readed, writedate       ";
+		sql+=   "         from cstvsboard                                     ";
+
+		// 2.검색 쿼리 추가
+		switch (searchCondition) {
+		case 1: sql+=   "    where regexp_like( title, ? , 'i') "; break;
+		case 2: sql+=   "    where regexp_like( content, ? , 'i')  "; break;
+		case 3: sql+=   "    where regexp_like( writer, ? , 'i')  "; break;
+		case 4: sql+=   "    where regexp_like( title, ? , 'i')   or regexp_like( content, ? , 'i')  ";break;
+		}
 		//
+
 		sql+=   "         order by seq desc                                    ";
 		sql+=   "     ) t                                                      ";
 		sql+=   " ) b                                                          ";
-		sql+=   " where b.no between ? and ?                  ";
-		// 한페이지에 출력할 게시글 수
+		sql+=   " where b.no between ? and ?                  ";	
+		// 한페이지 출력할 게시글 수
 		int numberPerPage = 10;
-		// 물음표에 넣어줄 변수
-		int start = (currentPage-1)*numberPerPage+1;	
-		int end = currentPage*numberPerPage;			 
-		
-		
+		int start = ( currentPage-1)*numberPerPage + 1; // 1  , 11
+		int end = currentPage * numberPerPage;          // 10 , 20
+
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, start);
-			pstmt.setInt(2, end);
-			
+			// between ? and ?
+			pstmt.setString(1, searchWord);
+			if( searchCondition == 4 ) {
+				pstmt.setString(2, searchWord);
+				pstmt.setInt(3, start);  // 3
+				pstmt.setInt(4, end);   // 4
+			}else {
+				pstmt.setInt(2, start);  // 3
+				pstmt.setInt(3, end);   // 4
+			}	
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				list = new ArrayList<BoardDTO>();
 				BoardDTO dto = null;
 				do {
 					dto = new BoardDTO();
-					dto.setSeq(rs.getInt("seq"));
-					dto.setWriter(rs.getString("writer"));
-					dto.setEmail(rs.getString("email"));
-					dto.setTitle(rs.getString("title"));
-					dto.setWriteDate(rs.getDate("writedate"));
-					dto.setReaded(rs.getInt("readed"));
-				
+					dto.setSeq( rs.getInt("seq") );
+					
+					String writer = rs.getString("writer");
+if( !searchWord.equals("*") && searchCondition == 3 ) {
+	writer = writer.replace(searchWord
+	         , "<span class='searchWord'>"+ searchWord +"</span>");
+}					
+					dto.setWriter( writer );
+					
+					dto.setEmail(rs.getString("email") );
+
+					String title  = rs.getString("title") ;
+					//title = title.replace("<", "&lt;");
+					//title = title.replace(">", "&gt;");
+					
+					// 검색어 있다면
+if( !searchWord.equals("*") && searchCondition == 1 ) {
+	title = title.replace(searchWord
+	         , "<span class='searchWord'>"+ searchWord +"</span>");
+}
+					dto.setTitle( title );
+
+					dto.setWriteDate( rs.getDate("writeDate") );
+					dto.setReaded(rs.getInt("readed") );
 					list.add(dto);
-				}while(rs.next());
+				} while (rs.next());
 			}
-			
-			
-		} catch (SQLException e) {
-			System.out.println("List.java doGet() 예외 발생");
+
+		} catch (SQLException e) { 
+			// List.java > doGet() 예외발생
 			e.printStackTrace();
-		}finally {	
-				try {
-					if(rs!= null) rs.close();
-					if(pstmt!=null)	pstmt.close();
-					//DBConn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			
+		} finally {			
+			try {
+				if( pstmt != null ) pstmt.close();
+				if( rs != null ) rs.close();
+				// DBConn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} 
+		// 페이징 처리 : 총 게시글수, 총 페이지 수  
+		sql =" select count(*) numberOfPostings " ; 
+		sql +="   ,  ceil(  count(*)/?  ) numberOfPages ";
+		sql +=" from cstvsboard ";
+		
+		// 3.검색 쿼리 추가
+		switch (searchCondition) {
+		case 1: sql+=   "    where regexp_like( title, ? , 'i') "; break;
+		case 2: sql+=   "    where regexp_like( content, ? , 'i')  "; break;
+		case 3: sql+=   "    where regexp_like( writer, ? , 'i')  "; break;
+		case 4: sql+=   "    where regexp_like( title, ? , 'i')   or regexp_like( content, ? , 'i')  ";break;
 		}
-		
-		
-		
-		
-		// 페이징 처리 (게시물수, 총페이지수 얻어오기)
-		sql =  "select count(*) numberOfPostings ";
-		sql += "        , ceil(count(*)/?) numberOfPages ";
-		sql += "from cstvsboard ";
-		
+
 		PageBlock pageBlock = new PageBlock();
 		pageBlock.setCurrentPage(currentPage);
 		pageBlock.setNumberPerPage(numberPerPage);
 		int numberOfPageBlocks = 10;
-		pageBlock.setNumberOfPageBlocks(numberOfPageBlocks);
-		
-		int numberOfPages =0;	// 총페이지수 저장변수
-		
+		pageBlock.setNumberOfPageBlocks(numberOfPageBlocks );
+
+		int numberOfPages = 0 ; // 총페이지수 저장변수
+
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, numberPerPage);
+			// 4. 검색 추가 코딩.
+			pstmt.setInt(1, numberPerPage ); 
+			pstmt.setString(2, searchWord );
+			if( searchCondition == 4)				
+				 pstmt.setString(3, searchWord);
+			//
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			if ( rs.next() ) {
 				numberOfPages = rs.getInt("numberOfPages");
 			}
-		} catch (SQLException e) {
-	
+		} catch (SQLException e) { 
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
-				if(rs!= null) rs.close();
-				if(pstmt!=null)	pstmt.close();
+				if( pstmt != null ) pstmt.close();
+				if( rs != null ) rs.close();
+				// DBConn.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}
-		
+		}	    
 		DBConn.close();
-		
-		// 페이징 처리 
-		int pageBlockStart= (currentPage-1)/numberOfPageBlocks*numberOfPageBlocks+1; // 블록 시작
-		int pageBlockEnd = pageBlockStart + numberOfPageBlocks-1;					// 마지막 페이지 값
-		pageBlockEnd = pageBlockEnd>numberOfPages ? numberOfPages : pageBlockEnd;	// 마지막 페이지보다 클경우 마지막페이지로설정
-		
-		pageBlock.setStart(pageBlockStart);
-		pageBlock.setEnd(pageBlockEnd);
-		
-		// 이전 다음버튼 true/false
-		pageBlock.setPrev(pageBlockStart==1 ? false :true);
-		pageBlock.setNext(pageBlockEnd==numberOfPages?false:true); 
-		
-		// 포워딩
-		request.setAttribute("list", list);  
-		request.setAttribute("pageBlock", pageBlock);
-		
-		String path = "/days07/board/list.jsp";
-		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-		dispatcher.forward(request, response);
+
+		// 1 페이지      1 2 3 ... 9 10
+		// 2 페이지      1 2 3 ... 9 10
+		// 10 페이지      1 2 3 ... 9 10  
+		// 11 페이지    11 2 3 ... 19  
+		// 12 페이지    11 2 3 ... 9 20
+		// 20 페이지    11 2 3 ... 9 20
+
+		// 블럭 시작
+		int pageBlockStart = 
+				(currentPage-1)/numberOfPageBlocks * numberOfPageBlocks + 1;
+		// 블럭 끝
+		int pageBlockEnd =
+				pageBlockStart + numberOfPageBlocks -1;
+		// 총페이지 수  : 7
+		//  << 1.2.3.4.5.6.7
+		pageBlockEnd =
+				pageBlockEnd > numberOfPages ? numberOfPages : pageBlockEnd;
+
+
+				pageBlock.setStart(pageBlockStart);		
+				pageBlock.setEnd(pageBlockEnd);		
+				// 이전 버튼 true/false
+				pageBlock.setPrev( pageBlockStart == 1 ? false : true );
+				// 다음 버튼 true/false
+				pageBlock.setNext( pageBlockEnd == numberOfPages ? false : true );
+
+				// 포워딩
+				request.setAttribute("list", list);
+				request.setAttribute("pageBlock", pageBlock);
+				String path = "/days07/board/list.jsp";
+				RequestDispatcher dispatcher = request.getRequestDispatcher(path);
+				dispatcher.forward(request, response);
 	}
 
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
 		doGet(request, response);
 	}
 
 }
+

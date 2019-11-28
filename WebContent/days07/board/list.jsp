@@ -35,6 +35,16 @@
   a:hover{
      color:red;
   }
+  
+  .title{
+  	display:inline-block;
+  	white-space: nowrap;
+  	width: 300px;
+  	overflow: hidden;
+  	text-overflow: ellipsis; 
+  	 
+  	
+  }
 </style>
 <!-- 페이징 처리 style -->
 <style>
@@ -59,7 +69,7 @@
 .pagination a:hover:not(.active) {background-color: #ddd;}
 </style>
 <style>
- .serachWord{
+ .searchWord{
    background-color: yellow;
    color:red;
  }
@@ -74,11 +84,11 @@
  <table style="width:600px;" class="table">
    <thead>
 	   <tr align="center">
-	     <td>번호</td>
-	     <td>제목</td>
-	     <td>작성자</td>
-	     <td>등록일</td>
-	     <td>조회</td>
+	     <td width="10%">번호</td>
+	     <td width="45%">제목</td>
+	     <td width="15%">작성자</td>
+	     <td width="20%">등록일</td>
+	     <td width="10%">조회</td>
 	  </tr>
   </thead>
   <tbody>
@@ -93,7 +103,10 @@
 	    <tr align="center">
 		   <td>${ dto.seq }</td>
 		    <td>
-		       <a href="/jspPro/cstvsboard/content.htm?seq=${ dto.seq }"  class="subjectLink">${ dto.title }</a>
+		    	
+		       <a  href="/jspPro/cstvsboard/content.htm?seq=${ dto.seq }&searchCondition=${ searchCondition }&searchWord=${searchWord }&currentPage=${currentPage}"    class="subjectLink title">	      
+		  			${ dto.title }  
+		       	</a>
 		    </td>
 		    <td> 
 		       <c:if test="${ dto.writer eq '한지민' }">
@@ -115,7 +128,8 @@
       <td colspan="5" align="center">
          <div class="pagination"> 
 		  <c:if test="${pageBlock.prev }">
-		  	<a href="jspPro/cstvsboard/list.htm?currentPage=${pageBlock.start-1 }">&laquo;</a>
+		  	
+		  	<a href="/jspPro/cstvsboard/list.htm?currentPage=${pageBlock.start-1 }">&laquo;</a>
 		  </c:if>
 		  <c:forEach begin="${pageBlock.start}" end="${pageBlock.end}" step="1" var="i">
 		  	
@@ -134,7 +148,7 @@
 		  	<a href="/jspPro/cstvsboard/list.htm?currentPage=${i }">${i }</a>
 		  </c:forEach>
 		  <c:if test="${pageBlock.next }">
-		  	<a href="jspPro/cstvsboard/list.htm?currentPage=${pageBlock.end+1 }">&raquo;</a>
+		  	<a href="/jspPro/cstvsboard/list.htm?currentPage=${pageBlock.end+1 }">&raquo;</a>
 		  </c:if>
 		</div>
       </td>
@@ -166,7 +180,18 @@
 	$(".pagination a")
 		.eq("${pageBlock.currentPage-1}")
 		.addClass("attive")
-		.attr("href","#");
+		.attr("href","#");	
+
+	
+	$(".pagination a").attr("href", function (i, val){
+		 return val +"&searchCondition=${ empty param.searchCondition? 1:param.searchCondition}&searchWord=${ param.searchWord}"; 
+	  });
+	
+	if( '${param.write}' == 'success'){
+		alert("글작성 완료");
+	}
+
+
 </script>
 </body>
 </html>

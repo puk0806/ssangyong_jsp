@@ -32,7 +32,13 @@ public class Content extends HttpServlet {
 		// 1. seq 해당 게시글 조회수 1증가
 		// 2. seq 해당 게시글 select -> BoardDTO dto -> setAtt...
 		
+	
+		
+		String referer = request.getHeader("referer");
+		System.out.println("이전 페이지 "+referer);
+		
 		int seq = Integer.parseInt(request.getParameter("seq"));
+	 
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -51,6 +57,7 @@ public class Content extends HttpServlet {
 		try {
 			// 조회수 1증가
 			conn = DBConn.getConnection();
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, seq);
 			
@@ -69,11 +76,26 @@ public class Content extends HttpServlet {
 				dto.setSeq(seq);
 				dto.setWriter(rs.getString("writer"));
 				dto.setEmail(rs.getString("email"));
-				dto.setTitle(rs.getString("title"));
+				
 				dto.setTag(rs.getInt("tag"));
-				dto.setContent(rs.getString("content"));
 				dto.setWriteDate(rs.getDate("writedate"));
 				dto.setReaded(rs.getInt("readed"));
+				// html태그 적용X
+				String title =  rs.getString("title");
+				title =  title.replace("<", "&lt;");
+				title = title.replace(">", "&gt;");
+				dto.setTitle(title);
+				
+				
+				String content = rs.getString("content");
+				content = content.replace("\r\n", "<br>");
+				if(rs.getInt("tag") != 1) {
+					content =  content.replace("<", "&lt;");
+					content = content.replace(">", "&gt;");
+				}
+				dto.setContent(content);
+				
+				
 			}
 			
 			
@@ -88,9 +110,7 @@ public class Content extends HttpServlet {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-			
 		}
-		
 		// 포워딩
 		
 		request.setAttribute("dto", dto);

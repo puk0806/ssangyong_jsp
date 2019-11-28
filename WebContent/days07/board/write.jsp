@@ -30,9 +30,9 @@ table, tr, td {
 
 <div align="center">
 	<h2>새글쓰기</h2>
-	<!-- [중요사항] action 속성 X -->
-       <!-- Write 서블릿 post 호출 -->
-	<form name="/jspPro/cstvsboard/write.htm" method="post">
+	<!-- [중요사항] action 속성 X -->     
+     <!-- 자기작신 url호출해서 write 서블렛 호출 -->
+	<form action="" name="/jspPro/cstvsboard/copywrite.htm" method="post">
 		<table style="padding: 2px; width: 600px">
 			<tr>
 				<td colspan="2" align="center"><b>글을 적어주세요</b></td>
@@ -69,7 +69,7 @@ table, tr, td {
 				  &nbsp;&nbsp;&nbsp; 
 				  <input type="reset" value="다시 작성">
 				  &nbsp;&nbsp;&nbsp; 
-				  <a href="/jspPro/board/list">Home</a>
+				  <a href="/jspPro/cstvsboard/list.htm">Home</a>
 				</td>
 			</tr>
 		</table>
