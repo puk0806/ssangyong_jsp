@@ -104,5 +104,36 @@
    	<url-pattern>/days05/test/employee.do</url-pattern>
    </servlet-mapping>
    
+   <!-- 웹사이트 전체에 초기화 설정 : application 기본 객체-->
+   <context-param>
+   <description>로깅여부</description>
+   	<param-name>logEnabled</param-name>
+   	<param-value>true</param-value>
+   </context-param>
    
+   <context-param>
+   <description>로긴여부</description>
+   	<param-name>debugLevel</param-name>
+   	<param-value>5</param-value>
+   </context-param>
+   
+   
+   	<!-- p 147 응급 상태 코드별로 에러 페이지 지정하는 방법 -->
+   <!-- 
+   	<error-page>
+   		<error-code>404</error-code>
+   		<location>/error/error404.jsp</location>
+   	</error-page>
+   		<error-page>
+   		<error-code>500</error-code>
+   		<location>/error/error500.jsp</location>
+   	</error-page>
+    -->
+    
+   <!-- p149 예외 타입별로 에러 페이지 지정 방법 -->
+   <!-- <error-page>
+   	<exception-type>java.lang.NullPointException</exception-type>
+   	<location>/error/nullPointException.jsp</location>
+   </error-page>
+    -->
 </web-app>
