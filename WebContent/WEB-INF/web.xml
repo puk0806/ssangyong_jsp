@@ -136,4 +136,15 @@
    	<location>/error/nullPointException.jsp</location>
    </error-page>
     -->
+    
+    
+    <!-- 12/2 -->
+    <jsp-config>			<!-- 모두 include하는 방법 -->
+    	<jsp-property-group>
+    		<url-pattern>/days01/*</url-pattern>			
+    		<include-prelude>/include/variable.jspf</include-prelude>		<!-- 맨 위쪽에 include -->		
+    		<include-coda>/include/footer.jspf</include-coda>				<!-- 맨 아래쪽에 include -->
+    		
+    	</jsp-property-group>
+    </jsp-config>
 </web-app>

@@ -25,8 +25,6 @@
 	File f = new File(path3);
 	File[] files = f.listFiles();
 	
-	
-	
 %>
 <!DOCTYPE html>
 <html>
