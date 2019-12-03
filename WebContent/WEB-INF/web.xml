@@ -147,4 +147,19 @@
     		
     	</jsp-property-group>
     </jsp-config>
+    
+    <!-- p415~DBCP설정 정보 -->
+    <resource-ref>
+	 <description>Oracle Datasource example</description>
+	 <res-ref-name>jdbc/myoracle</res-ref-name>
+	 <res-type>javax.sql.DataSource</res-type>
+	 <res-auth>Container</res-auth>
+	</resource-ref>
+	
+	<!-- p240 세션 타임 아웃 설정 50(분), 쿠키 단위(초)-->
+<!-- 
+	<session-config>
+		<session-timeout>50</session-timeout>
+	</session-config>
+-->
 </web-app>

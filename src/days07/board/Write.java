@@ -7,10 +7,12 @@ import java.sql.PreparedStatement;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.util.Cookies;
 import com.util.DBConn;
 
 @WebServlet("/cstvsboard/write.htm")
@@ -29,9 +31,32 @@ public class Write extends HttpServlet {
 		  response.sendRedirect(location);
 		*/
 		
-		String path ="/days07/board/write.jsp";
-		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-		dispatcher.forward(request, response);
+		// [로그인 인증] 받았는 지 확인 후에 X
+		// ex01_default.jsp 로그인 페이지로 이동
+		// auth 쿠키값이 존재하는지 확인
+		
+		String auth = null;
+		Cookies cookies = new Cookies(request); // map
+		if(  cookies.exists("auth") ){		// 로그인 되어있다면
+			   auth = cookies.getValue("auth");  
+			   //
+				String path = "/days07/board/write.jsp";
+				RequestDispatcher dispatcher = request.getRequestDispatcher(path);
+				dispatcher.forward(request, response);	
+		}else {								// 로그인 되어있지 않다면
+			String location = "/jspPro/days11/ex01_default.jsp";
+			/*
+			 String path = "/days11/ex01_default.jsp"; 
+			 RequestDispatcher dispatcher = request.getRequestDispatcher(path);
+			 dispatcher.forward(request, response);
+			 */
+			String referer = request.getRequestURI();	// 돌아갈 URL
+			Cookie cookie = Cookies.createCookie("referer", referer, "/", -1);
+			response.addCookie(cookie);
+			
+			response.sendRedirect(location);
+			
+		}
 	}
 
 	// 입력 값을 가지고 DB inserting -> 글목록 페이지로 이동

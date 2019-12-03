@@ -22,13 +22,10 @@
 					을 이용한 파라미터로 전달
 	용도			:	화면의 레이아웃의 일부분 모듈화 할때	[다수의 JSP페이지]에 공통 사용된 변수를 지정를 지정하는 코드,문장을 포함
 				ex)	TOP/BOTTOM 모듈화				ex) contextpath
- --%>
+--%>
  <%@ include file="/include/variable.jspf"%>		
  <a href="ex02_main.jsp?age=20">ex02_main.jsp?age=20</a>
-
-
-
-
+ 
 <script>
 $(function(){});
 </script>

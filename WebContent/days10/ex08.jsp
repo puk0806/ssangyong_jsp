@@ -28,7 +28,6 @@
 <!-- p222 Cookies.java파일 코딩 -->
 <a href="ex08_cookie_list.jsp">쿠키리스트 보기</a>				
 
-
 <script>
 $(function(){});
 </script>

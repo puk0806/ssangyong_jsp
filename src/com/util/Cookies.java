@@ -35,7 +35,8 @@ public class Cookies {
 	public String getValue( String name) throws UnsupportedEncodingException {
 		Cookie cookie = this.cookieMap.get(name);
 		if( cookie == null ) return null;
-		return URLDecoder.decode(cookie.getValue(), "UTF-8");
+		return cookie.getValue();
+		//return URLDecoder.decode(cookie.getValue(), "UTF-8");
 	}
 	
 	public boolean exists( String name ) {
@@ -48,7 +49,8 @@ public class Cookies {
 	
 	public  static Cookie createCookie( String name, String value
 			, String path, int maxAge) throws UnsupportedEncodingException {
-		 Cookie cookie = new Cookie(name, URLEncoder.encode(value, "UTF-8"));
+		 // Cookie cookie = new Cookie(name, URLEncoder.encode(value, "UTF-8"));
+		Cookie cookie = new Cookie(name, value); //     / %23F
 		 cookie.setPath(path);
 		 cookie.setMaxAge(maxAge);
 		 return cookie;
