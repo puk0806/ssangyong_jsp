@@ -11,16 +11,15 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.util.Cookies;
 import com.util.DBConn;
 
-@WebServlet("/cstvsboard/write.htm")
-public class Write extends HttpServlet {
+// @WebServlet("/cstvsboard/write.htm")
+public class Write_02 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
-    public Write() {
+    public Write_02() {
         super();
     }
 
@@ -34,25 +33,29 @@ public class Write extends HttpServlet {
 		
 		// [로그인 인증] 받았는 지 확인 후에 X
 		// ex01_default.jsp 로그인 페이지로 이동
-		// auth 세션 존재확인
+		// auth 쿠키값이 존재하는지 확인
 		
 		String auth = null;
-		HttpSession httpSession = request.getSession(false);
-		if(httpSession != null ){		// 로그인 되어있다면
-			   auth = (String)httpSession.getAttribute("auth");
-			   if(auth != null) {
-				   String path = "/days07/board/write.jsp";
-				   RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-				   dispatcher.forward(request, response);	
-				}else {
-					String location = "/jspPro/days12/ex03_default.jsp";
-					
-					String referer = request.getRequestURI();	// 돌아갈 URL
-					Cookie cookie = Cookies.createCookie("referer", referer, "/", -1);
-					response.addCookie(cookie);
-					
-					response.sendRedirect(location);
-				}		
+		Cookies cookies = new Cookies(request); // map
+		if(  cookies.exists("auth") ){		// 로그인 되어있다면
+			   auth = cookies.getValue("auth");  
+			   //
+				String path = "/days07/board/write.jsp";
+				RequestDispatcher dispatcher = request.getRequestDispatcher(path);
+				dispatcher.forward(request, response);	
+		}else {								// 로그인 되어있지 않다면
+			String location = "/jspPro/days11/ex01_default.jsp";
+			/*
+			 String path = "/days11/ex01_default.jsp"; 
+			 RequestDispatcher dispatcher = request.getRequestDispatcher(path);
+			 dispatcher.forward(request, response);
+			 */
+			String referer = request.getRequestURI();	// 돌아갈 URL
+			Cookie cookie = Cookies.createCookie("referer", referer, "/", -1);
+			response.addCookie(cookie);
+			
+			response.sendRedirect(location);
+			
 		}
 	}
 

@@ -54,7 +54,6 @@
 	session.setAttribute("ename", "SMITH");	// 세션에 값 저장
 %>
 	<a href="ex03_02.jsp">ex03_02.jsp</a>
-
 <%
 	// 세션 유효 기간 설정하는 두 번째 방법 p240
 	// 단위(초)

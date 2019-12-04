@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
   <display-name>jspPro</display-name>
+  
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
@@ -9,157 +10,40 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  <!-- 
-  Deployment Descrptor == DD파일 == web.xml
-    배포 설명자
-   -->  
-   
-   <!-- 서블릿 등록 -->
-   <servlet>
-   	<servlet-name>now</servlet-name>	<!-- 내가 부여한 이름 -->
-   	<servlet-class>days01.NowServlet</servlet-class>
-   </servlet>
-   
-   <!-- 밖에있는 서블릿 맵핑 시키기 -->
-   <servlet-mapping>
-   	<servlet-name>now</servlet-name>
-   	<url-pattern>/days01/now</url-pattern>
-   </servlet-mapping>
-   
-   
-   
-   
-   <!-- 최초 요청이 있어야 서블릿 객체 생성되지만 톰캣 서버가 시작될 떄 서블릿 객체 생성 -->
-   <servlet>
-   	<servlet-name>dbcp</servlet-name>	
-   	<servlet-class>days01.DBCPInit</servlet-class>
-   	<!-- 오라클 디비 연동 -->
-   	<init-param>				
-   		<param-name>jdbcdriver</param-name>
-   		<param-value>oracle.jdbc.driver.OracleDriver</param-value>
-   	</init-param>
-   	
-   	<init-param>				
-   		<param-name>url</param-name>
-   		<param-value>jdbc:oracle:thin:@localhost:1521:xe</param-value>
-   	</init-param>
-   	
-   	<init-param>				
-   		<param-name>user</param-name>
-   		<param-value>scott</param-value>
-   	</init-param>
-   	
-   	<init-param>				
-   		<param-name>password</param-name>
-   		<param-value>tiger</param-value>
-   	</init-param>
-   	
-   	
-   	<!-- <load-on-startup>1</load-on-startup> --> 		<!-- load-on-startup: 서블릿 객체 생성 순서 설정 -->
-   </servlet>
-   
-    <servlet-mapping>
-   	<servlet-name>dbcp</servlet-name>
-   	<url-pattern>/init</url-pattern>
-   </servlet-mapping>
-   
-   <servlet>
-   	<servlet-name>test01</servlet-name>
-   	<servlet-class>days02.Test01</servlet-class>
-   </servlet>
-   
-   <servlet-mapping>
-   	<servlet-name>test01</servlet-name>
-   	<url-pattern>/test/hap</url-pattern>
-   </servlet-mapping>
-   
-      
-   <servlet>
-   	<servlet-name>forwardServlet</servlet-name>
-   	<servlet-class>days03.ForWard</servlet-class>
-   </servlet>
-   
-   <servlet-mapping>
-   	<servlet-name>forwardServlet</servlet-name>
-   	<url-pattern>/forward</url-pattern>
-   </servlet-mapping>
-   
-   <servlet>
-	<servlet-name>deptServlet</servlet-name>
-	<servlet-class>days05.DeptServlet</servlet-class>
-   </servlet>
-   
-   <servlet-mapping>
-   	<servlet-name>deptServlet</servlet-name>
-   	<url-pattern>/days05/test/dept.do</url-pattern>
-   </servlet-mapping>
-   
-      <servlet>
-	<servlet-name>empServlet</servlet-name>
-	<servlet-class>days05.EmpServlet</servlet-class>
-   </servlet>
-   
-   <servlet-mapping>
-   	<servlet-name>empServlet</servlet-name>
-   	<url-pattern>/days05/test/employee.do</url-pattern>
-   </servlet-mapping>
-   
-   <!-- 웹사이트 전체에 초기화 설정 : application 기본 객체-->
-   <context-param>
-   <description>로깅여부</description>
-   	<param-name>logEnabled</param-name>
-   	<param-value>true</param-value>
-   </context-param>
-   
-   <context-param>
-   <description>로긴여부</description>
-   	<param-name>debugLevel</param-name>
-   	<param-value>5</param-value>
-   </context-param>
-   
-   
-   	<!-- p 147 응급 상태 코드별로 에러 페이지 지정하는 방법 -->
-   <!-- 
-   	<error-page>
-   		<error-code>404</error-code>
-   		<location>/error/error404.jsp</location>
-   	</error-page>
-   		<error-page>
-   		<error-code>500</error-code>
-   		<location>/error/error500.jsp</location>
-   	</error-page>
-    -->
-    
-   <!-- p149 예외 타입별로 에러 페이지 지정 방법 -->
-   <!-- <error-page>
-   	<exception-type>java.lang.NullPointException</exception-type>
-   	<location>/error/nullPointException.jsp</location>
-   </error-page>
-    -->
-    
-    
-    <!-- 12/2 -->
-    <jsp-config>			<!-- 모두 include하는 방법 -->
-    	<jsp-property-group>
-    		<url-pattern>/days01/*</url-pattern>			
-    		<include-prelude>/include/variable.jspf</include-prelude>		<!-- 맨 위쪽에 include -->		
-    		<include-coda>/include/footer.jspf</include-coda>				<!-- 맨 아래쪽에 include -->
-    		
-    	</jsp-property-group>
-    </jsp-config>
-    
-    <!-- p415~DBCP설정 정보 -->
-    <resource-ref>
-	 <description>Oracle Datasource example</description>
-	 <res-ref-name>jdbc/myoracle</res-ref-name>
-	 <res-type>javax.sql.DataSource</res-type>
-	 <res-auth>Container</res-auth>
-	</resource-ref>
-	
-	<!-- p240 세션 타임 아웃 설정 50(분), 쿠키 단위(초)-->
-<!-- 
-	<session-config>
-		<session-timeout>50</session-timeout>
-	</session-config>
--->
+  
+  <!-- p536 -->
+<servlet>
+   <servlet-name>ControllerUsingFile</servlet-name>
+   <servlet-class>days12.mvc.controller.ControllerUsingFile</servlet-class>
+   <init-param>
+      <param-name>configFile</param-name>
+      <param-value>/WEB-INF/commandHandler.properties</param-value>
+   </init-param>
+   <load-on-startup>1</load-on-startup>
+</servlet>
+
+<servlet-mapping>
+   <servlet-name>ControllerUsingFile</servlet-name>
+   <url-pattern>/sist</url-pattern>
+</servlet-mapping>
+
+
+<!-- p542 -->  
+<servlet>
+	<servlet-name>ControllerUsingURI</servlet-name>
+	<servlet-class>days12.mvc.controller.ControllerUsingURI</servlet-class>
+	<init-param>
+		<param-name>configFile</param-name>
+		<param-value>/WEB-INF/commandHandlerURI.properies</param-value>
+	</init-param>
+	<load-on-startup>1</load-on-startup>
+</servlet>
+<servlet-mapping>
+	<servlet-name>ControllerUsingURI</servlet-name>
+	<url-pattern>*.do</url-pattern>
+</servlet-mapping>
+  
+  
+  
+
 </web-app>

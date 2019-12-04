@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class NowServlet extends HttpServlet{
 
@@ -20,6 +21,15 @@ public class NowServlet extends HttpServlet{
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// super.doGet(req, resp);
 		response.setContentType("text/html; charset=UTF-8");
+		
+		// 세션에 어떤 값이 auth존재
+		// JSP : session 기본 객체 X
+		/*
+		HttpSession httpSession = request.getSession(false);
+		if(httpSession !=null) {
+			
+		}
+		*/
 		
 		PrintWriter out = response.getWriter();
 		                                                                   
