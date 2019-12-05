@@ -9,5 +9,4 @@
 <script>
 	alert("<%=auth%>님 로그아웃 하셨습니다.")
 	location.href = "ex03_default.jsp";	// js에서 페이지 이동 요청
-	
 </script>

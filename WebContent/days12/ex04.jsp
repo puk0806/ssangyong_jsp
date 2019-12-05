@@ -29,6 +29,7 @@
 				(DTO)	-> DAO
 						-> DBMS
 -->
+
 <!--
 	p520 [컨트롤러 controller 서블릿] 내부 동작 방식
 	클라이언트(브라우저) -> http 요청 -> 
@@ -45,6 +46,7 @@
 	p 523 컨트롤러 서블릿 클래스 ControllerServlet 코딩.
 		days12 패키지 안에 ControllerServlet
  -->
+ 
  <!-- /jspPro/days12/simple 서블릿 컨트롤러 못찾음 -->
  <a href="/jspPro/days12/simple">/jspPro/days12/simple</a>
  

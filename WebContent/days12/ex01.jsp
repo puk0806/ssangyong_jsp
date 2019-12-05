@@ -9,6 +9,7 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <style>
 </style>
+
 </head>
 <body>
 <h3>days12.ex01.jsp</h3>

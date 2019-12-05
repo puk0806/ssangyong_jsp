@@ -61,15 +61,15 @@
    </tr>
    <tr>
        <td colspan="4" align="center">
-           <a class="btn btn-info" href="/jspPro/cstvsboard/edit.htm?seq=${ dto.seq }" id="editLink">수정하기</a>
-           <a class="btn btn-info" href="/jspPro/cstvsboard/delete.htm?seq=${ dto.seq }" id="deleteLink">삭제하기</a>
+           <a class="btn btn-info" href="/jspPro/board/edit.do?seq=${ dto.seq }" id="editLink">수정하기</a>
+           <a class="btn btn-info" href="/jspPro/board/delete.do?seq=${ dto.seq }" id="deleteLink">삭제하기</a>
            <a class="btn btn-info" href="/jspPro/cstvsboard/list.htm?&searchCondition=${ param.searchCondition }&searchWord=${param.searchWord }&currentPage=${ param.currentPage }" id="homeLink">Home</a>
            
            <input type="button" id="btnModalDelete" value="모달창으로 글 삭제">       
            
            <div align="center" id="dialog-form">
 			  <h2>삭제하기</h2>
-			  <form action="/jspPro/cstvsboard/delete.htm" method="post">
+			  <form action="/jspPro/board/delete.do" method="post">
 			<table>
 			  <tr>
 			    <td colspan="2" align="center"><b>글을 삭제합니다</b></td>

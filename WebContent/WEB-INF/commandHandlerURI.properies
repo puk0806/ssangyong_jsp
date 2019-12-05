@@ -1,1 +1,5 @@
-/hello.do=days12.mvc.hello.HelloHandler
+/board/list.do=days13.mvc.board.ListHandler
+/board/write.do=days13.mvc.board.WriteHandler
+/board/content.do=days13.mvc.board.ContentHandler
+/board/delete.do=days13.mvc.board.DeleteHandler
+/board/edit.do=days13.mvc.board.EditHandler

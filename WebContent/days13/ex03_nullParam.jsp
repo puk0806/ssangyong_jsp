@@ -5,14 +5,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>chanho - 2019. 12. 4. 오전 11:46:52</title>
+<title>chanho - 2019. 12. 5. 오후 3:02:51</title>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <style>
 </style>
 </head>
 <body>
-결과 : ${requestScope.result } <br />
-결과 : ${result } <br />
+	id 파라미터 : <%=request.getParameter("id") %> <br />
+	name 파라미터 : <%=request.getParameter("name") %> <br />
+	member 파라미터 : <%=request.getParameter("member") %> <br />
+
+
 <script>
 $(function(){});
 </script>
