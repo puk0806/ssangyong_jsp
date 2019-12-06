@@ -21,7 +21,6 @@
 
 <ol>
 	<%
-		
 		Iterator<DeptDTO> ir = list.iterator();
 		while(ir.hasNext()){
 			DeptDTO dto = ir.next();
