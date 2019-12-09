@@ -7,10 +7,14 @@ public class Member {
 	private int age;
 	private String addr;
 	
-	public Member() {
-		
-	}
 	
+	
+	public Member() {
+		super();
+	}
+
+
+
 	public Member(String id, String name, int age, String addr) {
 		super();
 		this.id = id;
