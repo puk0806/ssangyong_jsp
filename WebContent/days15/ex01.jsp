@@ -29,7 +29,7 @@
 	5. 함수 : 컬렌션 처리, String 처리 / 접두사 fn / http://java.sun.com/jsp/jstl/functions	 		(중요)
 	
 	[JSTL 다운로드] 
-	WEB-INF/lib/jstl-1.2.jar 추가ㅉ
+	WEB-INF/lib/jstl-1.2.jar 추가
 	
 -->
 

@@ -49,8 +49,6 @@
 <c:set target="<%=member %>" property="name" value="홍길동">
 
 
-
-
 </c:set>
 <script>
 $(function(){});

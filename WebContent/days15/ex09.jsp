@@ -43,9 +43,6 @@
 		<c:param name="w" value="blog"></c:param>
 		<c:param name="q" value="공원"></c:param>
 	</c:redirect>
-	
-
-
 <script>
 $(function(){});
 </script>

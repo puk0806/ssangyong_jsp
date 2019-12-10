@@ -1,0 +1,4 @@
+/days16/guestbook/list.do=days16.guestbook.command.GetMessageListHandler
+/days16/guestbook/write.do=days16.guestbook.command.WriteMessageHandler
+/days16/guestbook/confirmDeletion.do=days16.guestbook.command.ConfirmDeleteHandler
+/days16/guestbook/deleteMessage.do=days16.guestbook.command.DeleteMessageHandler
