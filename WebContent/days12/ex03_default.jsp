@@ -74,7 +74,6 @@
 </c:choose>
 
 
-
 <a href="/jspPro/cstvsboard/list.htm">게시판</a> <br />
 <a href="ex03_notice.jsp">공지사항</a> <br />
 <!-- 로그인을 해야지만 일정관리/자료실 사용할 수 있다. -->
