@@ -40,7 +40,7 @@ public class LoginCheckFilter implements Filter{
 			chain.doFilter(request, response);
 		}else {
 			RequestDispatcher dispatcher = 
-					request.getRequestDispatcher("/days13/member/ex04_logon.jsp");
+					request.getRequestDispatcher("/changePwd.do");
 			dispatcher.forward(request, response);
 		}
 	}

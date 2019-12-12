@@ -41,10 +41,10 @@
 	<!-- p542 -->  
 	<servlet>
 		<servlet-name>ControllerUsingURI</servlet-name>
-		<servlet-class>days18.mvc.controller.ControllerUsingURI</servlet-class>
+		<servlet-class>days16.guestbook.controller.ControllerUsingURI</servlet-class>
 		<init-param>
 			<param-name>configFile</param-name>
-			<param-value>/WEB-INF/view/days18/commandHandlerURI.properies</param-value>
+			<param-value>/WEB-INF/view/days16/commandHandlerURI.properies</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
@@ -53,14 +53,5 @@
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 	
-	<!-- p613 로그인 필터 등록 -->
-	<filter>
-		<filter-name>LoginCheckFilter</filter-name>
-		<filter-class>com.filter.LoginCheckFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>LoginCheckFilter</filter-name>
-		<url-pattern>/changePwd.do</url-pattern>
-	</filter-mapping>
 
 </web-app>
