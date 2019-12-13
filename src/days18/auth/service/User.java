@@ -1,13 +1,11 @@
 package days18.auth.service;
 
-// p604
 public class User {
-	
+
 	private String memberid;
 	private String name;
-	
+
 	public User(String memberid, String name) {
-		super();
 		this.memberid = memberid;
 		this.name = name;
 	}
@@ -16,8 +14,16 @@ public class User {
 		return memberid;
 	}
 
+	public void setMemberid(String memberid) {
+		this.memberid = memberid;
+	}
+
 	public String getName() {
 		return name;
 	}
-	
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 }

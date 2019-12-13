@@ -7,60 +7,61 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import com.util.JdbcUtil;
+
 import days18.member.model.Member;
 
-// p593
+// p 592
 public class MemberDao {
-	
-	public Member selectById(Connection conn,String id) throws SQLException{
+	public Member selectById(Connection conn, String id) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
-			String sql = "select * from member where memberid=?";
-			pstmt = conn.prepareStatement(sql);
+			pstmt = conn.prepareStatement("select * from member "
+					+ " where memberid=?");
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
-			
 			Member member = null;
-			if(rs.next()) {
-				member = new Member(rs.getString("memberid"),rs.getString("name"),rs.getString("password"),rs.getDate("regdate"));
+			if( rs.next()) {
+				member = new Member(
+						rs.getString("memberid")
+						, rs.getString("name")
+						, rs.getString("password")
+						, rs.getDate("regdate")
+						);
 			}
 			return member;
-		}finally {
-			if(rs!=null) rs.close();
-			if(pstmt!=null) pstmt.close();
+			
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
 		}
 	}
-	
-	
-	private Date toDate(Timestamp date) {
-		return date == null ? null:new Date(date.getDate());
+
+	private Date toDate(Date date) {
+		return date == null ? null : new Date( date.getTime());
 	}
 	
-	// 멤버 추가 메서드
-	public void insert(Connection conn, Member mem)throws SQLException{
-		String sql = "insert into member values(?,?,?,?)";
-		try(PreparedStatement pstmt = conn.prepareStatement(sql)){
+	public void insert( Connection conn, Member mem) throws SQLException {
+		try( PreparedStatement pstmt = 
+				conn.prepareStatement("insert into member values(?,?,?,sysdate)") ){
 			pstmt.setString(1, mem.getMemberid());
 			pstmt.setString(2, mem.getName());
 			pstmt.setString(3, mem.getPassword());
-			pstmt.setTimestamp(4, new Timestamp(mem.getRegdate().getTime()));
+			//pstmt.setDate(4, mem.getRegdate());
 			pstmt.executeUpdate();
-		}
+		}  
 	}
 	
-	
-	// 멤버 수정 메서드
-	public void update(Connection conn, Member member) throws SQLException{
-		
-		String sql = "update member set name = ?,password =? where memberid =?";
-		try(PreparedStatement pstmt = conn.prepareStatement(sql)){
+	public void update(Connection conn, Member member) throws SQLException {
+		try (PreparedStatement pstmt = conn.prepareStatement(
+				"update member set name = ?, password = ? where memberid = ?")) {
 			pstmt.setString(1, member.getName());
 			pstmt.setString(2, member.getPassword());
-			pstmt.setString(3,member.getMemberid());
+			pstmt.setString(3, member.getMemberid());
 			pstmt.executeUpdate();
 		}
 	}
-	
+
 }

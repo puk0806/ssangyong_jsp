@@ -6,17 +6,13 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-/**
- * Application Lifecycle Listener implementation class Blistener
- *
- */
-// @WebListener
-public class Blistener implements ServletContextListener, ServletContextAttributeListener {
+//@WebListener
+public class BListener implements ServletContextListener, ServletContextAttributeListener {
 
     /**
      * Default constructor. 
      */
-    public Blistener() {
+    public BListener() {
         // TODO Auto-generated constructor stub
     }
 
@@ -52,7 +48,7 @@ public class Blistener implements ServletContextListener, ServletContextAttribut
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
      */
     public void contextInitialized(ServletContextEvent sce)  { 
-    	System.out.println("비리스너 불려옴");
+    	System.out.println("> B 웹사이트 시작 초기화 ...");
     }
 	
 }

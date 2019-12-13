@@ -7,68 +7,65 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import days18.auth.service.User;
-import days18.member.service.ChangePasswordService;
+import days18.member.service.ChangePasswordService; 
 import days18.member.service.InvalidPasswordException;
+import days18.member.service.JoinRequest;
+import days18.member.service.JoinService;
 import days18.member.service.MemberNotFoundException;
 import days18.mvc.command.CommandHandler;
 
-//p622
-public class ChangePasswordHandler implements CommandHandler{
-	
-	private static final String FORM_VIEW = "/days18/changePwdForm";
+public class ChangePasswordHandler implements CommandHandler {
+	private static final String FORM_VIEW = "/days18/member/changePwdForm";
 	private ChangePasswordService changePwdSvc = new ChangePasswordService();
-
+	
 	@Override
-	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
-		if(request.getMethod().equalsIgnoreCase("GET")) {
-			System.out.println("체인지 핸들러 GET요청");
-			return processForm(request,response);
-		}else if(request.getMethod().equalsIgnoreCase("POST")) {
-			System.out.println("체인지 핸들러 POST요청");
-			return processSubmit(request,response);
+	public String process(HttpServletRequest req, HttpServletResponse res) 
+	throws Exception {
+		if (req.getMethod().equalsIgnoreCase("GET")) {
+			return processForm(req, res);
+		} else if (req.getMethod().equalsIgnoreCase("POST")) {
+			return processSubmit(req, res);
+		} else {
+			res.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+			return null;
 		}
-		
-		return null;
 	}
 
-
-	// get 요청시
-	private String processForm(HttpServletRequest request, HttpServletResponse response) {
+	private String processForm(HttpServletRequest req, HttpServletResponse res) {
 		return FORM_VIEW;
 	}
-	
-	// post 요청시
-	private String processSubmit(HttpServletRequest request, HttpServletResponse response) throws Exception{
+
+
+	private String processSubmit(HttpServletRequest req, HttpServletResponse res)
+	throws Exception {
+		User user = (User)req.getSession().getAttribute("authUser");
+			
+		Map<String, Boolean> errors = new HashMap<>();
+		req.setAttribute("errors", errors);
+
+		String curPwd = req.getParameter("curPwd");
+		String newPwd = req.getParameter("newPwd");
 		
-		User user = (User)request.getSession().getAttribute("authUser");
-		
-		Map<String, Boolean> errors = new HashMap<String, Boolean>();
-		
-		String curPwd = request.getParameter("curPwd");
-		String newPwd = request.getParameter("newPwd");
-		
-		if(curPwd==null||curPwd.isEmpty()) {
+		if (curPwd == null || curPwd.isEmpty()) {
 			errors.put("curPwd", Boolean.TRUE);
 		}
-		
-		if(newPwd==null||newPwd.isEmpty()) {
+		if (curPwd == null || curPwd.isEmpty()) {
 			errors.put("newPwd", Boolean.TRUE);
 		}
-		
-		if(!errors.isEmpty()) {
+		if (!errors.isEmpty()) {
 			return FORM_VIEW;
 		}
 		
 		try {
-			changePwdSvc.changePassword(user.getMemberid(), curPwd, newPwd);
-			return "/days18/changePwdSuccess";
-		}catch(InvalidPasswordException e) {
-			errors.put("badCurPwd",Boolean.TRUE);
+			changePwdSvc.changePassword(user.getMemberid() , curPwd, newPwd);
+			return "/days18/member/changePwdSuccess";
+		} catch (InvalidPasswordException e) {
+			errors.put("badCurPwd", Boolean.TRUE);
 			return FORM_VIEW;
-		}catch (MemberNotFoundException e) {
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+		} catch (MemberNotFoundException e) {
+			res.sendError(HttpServletResponse.SC_BAD_REQUEST);
 			return null;
-		}	
+		}
 	}
+
 }

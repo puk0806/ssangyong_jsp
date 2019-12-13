@@ -5,18 +5,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>chanho - 2019. 12. 12. 오후 2:30:08</title>
+<title>kenik - 2019. 12. 12. 오전 10:03:08</title>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <style>
 </style>
 </head>
 <body>
 
-암호를 변경했습니다.
+
+${param.name}님, 회원 가입에 성공했습니다.
+<br/>
 
 
 <script>
-$(function(){});
+$(function (){});
 </script>
 </body>
 </html>

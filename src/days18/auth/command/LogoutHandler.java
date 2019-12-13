@@ -5,19 +5,20 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import days18.mvc.command.CommandHandler;
-//p611
-public class LogoutHandler implements CommandHandler{
+ 
 
+public class LogoutHandler implements CommandHandler {
+	
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
-		HttpSession session =request.getSession(false);
-		if(session!=null) {
+		HttpSession session = request.getSession(false);
+		if (session != null) {
 			session.invalidate();
 		}
-		response.sendRedirect("/jspPro/index.do");
+		
+		//res.sendRedirect(req.getContextPath() + "/index.jsp");
+		response.sendRedirect(request.getContextPath() + "/index.do");
 		return null;
 	}
-	
-	
+
 }

@@ -1,5 +1,6 @@
 package days18.mvc.controller;
 
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
@@ -15,20 +16,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import days18.mvc.command.CommandHandler;
 import days18.mvc.command.NullHandler;
-// 파일을 이용해서 요청 명령을 분기하는 [MV[C]]패
 
+ 
 
-
-public class ControllerUsingURI extends HttpServlet {
-
-
-    private Map<String, CommandHandler> commandHandlerMap = new HashMap<>();
-
-    public void init() throws ServletException {
-        String configFile = getInitParameter("configFile");	// /WEB-INF/commandHandler.properties
+// 파일을 이용해서 요청 명령을 분기하는 컨트롤러
+public class ControllerUsingURI extends HttpServlet{
+	 
+	private Map<String,CommandHandler> commandHandlerMap =
+			new HashMap<>();
+	
+	@Override
+	public void init() throws ServletException { 
+		String configFile = getInitParameter("configFile");
         Properties prop = new Properties();
-        // request.getRealPath() (X : request객체 없음)
-        String configFilePath = getServletContext().getRealPath(configFile); // 파라미터값 가져오는 방법
+        String configFilePath = getServletContext().getRealPath(configFile);
         try (FileReader fis = new FileReader(configFilePath)) {
             prop.load(fis);
         } catch (IOException e) {
@@ -39,36 +40,42 @@ public class ControllerUsingURI extends HttpServlet {
             String command = (String) keyIter.next();
             String handlerClassName = prop.getProperty(command);
             try {
-            	// 핸들러 객체 생성
                 Class<?> handlerClass = Class.forName(handlerClassName);
                 CommandHandler handlerInstance = 
                         (CommandHandler) handlerClass.newInstance();
-                // 맵 추가
-                commandHandlerMap.put(command, handlerInstance);
+commandHandlerMap.put(command, handlerInstance);
             } catch (ClassNotFoundException | InstantiationException 
-                  | IllegalAccessException e) {
+            		| IllegalAccessException e) {
                 throw new ServletException(e);
             }
         }
-    }
-    
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        process(request, response);
-    }
+//        System.out.println(this.commandHandlerMap.size()
+//        		+"/"+ this.commandHandlerMap.get("/hello.do"));
+	} // init() 닫기
 
-    protected void doPost(HttpServletRequest request,
-    HttpServletResponse response) throws ServletException, IOException {
-        process(request, response);
-    }
+	@Override
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		process(request,response);
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		process(request,response);
+	}
 
-    private void process(HttpServletRequest request,
-    HttpServletResponse response) throws ServletException, IOException {
-        String command = request.getRequestURI();
-        if(command.indexOf(request.getContextPath())==0) {
-        	command = command.substring(request.getContextPath().length());
+	private void process(HttpServletRequest request, 
+			HttpServletResponse response) throws ServletException, IOException {
+		 
+		String command = request.getRequestURI();
+		//   /hello.do
+        if( command.indexOf(request.getContextPath())== 0 ) {
+        	command = command.substring(request.getContextPath().length() );
         }
-        
+//System.out.println(command); //          /hello.do
+        //
+ 
         CommandHandler handler = commandHandlerMap.get(command);
         if (handler == null) {
             handler = new NullHandler();
@@ -79,15 +86,18 @@ public class ControllerUsingURI extends HttpServlet {
         } catch (Throwable e) {
             throw new ServletException(e);
         }
-        
-        System.out.println("viewPage : "+viewPage);
         if (viewPage != null) {
-        	// /WEB-INF/view/hello.jsp
-        	String prefix = "/WEB-INF/view/";
+        	String prefix = "/WEB-INF/view";
         	String suffix = ".jsp";
-        	viewPage = prefix+viewPage+suffix;
-           RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
-           dispatcher.forward(request, response);
+        	viewPage = prefix + viewPage+suffix;
+	        RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+	        dispatcher.forward(request, response);
         }
-    }
+	}
+
+	
+
+	
+	
 }
+

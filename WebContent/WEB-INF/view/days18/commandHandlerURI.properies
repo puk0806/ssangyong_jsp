@@ -1,5 +1,0 @@
-/join.do=days18.member.command.JoinHandler
-/login.do=days18.auth.command.LoginHandler
-/index.do=days18.command.IndexHandler
-/logout.do=days18.auth.command.LogoutHandler
-/changePwd.do=days18.member.command.ChangePasswordHandler

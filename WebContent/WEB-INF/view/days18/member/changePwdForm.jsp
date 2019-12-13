@@ -4,15 +4,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>chanho - 2019. 12. 12. 오후 2:20:47</title>
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<title>jsp/servlet class - k≡n¡k (2019. 5. 13.-오후 2:39:20)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="">
 <style>
 </style>
+<script>
+   $(document).ready(function (){	  
+   });
+</script>
 </head>
 <body>
-
-<form action="changePwd.do" method="post">
+<form action="/jspPro/changePwd.do" method="post">
 <p>
 	현재 암호:<br/><input type="password" name="curPwd">
 	<c:if test="${errors.curPwd}">현재 암호를 입력하세요.</c:if>
@@ -24,10 +28,16 @@
 </p>
 <input type="submit" value="암호 변경">
 </form>
-
-
-<script>
-$(function(){});
-</script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+

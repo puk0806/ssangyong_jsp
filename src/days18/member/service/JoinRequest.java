@@ -2,17 +2,8 @@ package days18.member.service;
 
 import java.util.Map;
 
-// p594
+// p 594
 public class JoinRequest {
-/*	
-	create table member(
-		    memberid VARCHAR2(50) primary key,
-		    name varchar2(50) not null,
-		    password VARCHAR2(10) not null,
-		    regdate date not null
-	);
-*/
-	// 필드명 테이블컬럼과 동일하게 하기!!!
 	
 	private String memberid;
 	private String name;
@@ -44,26 +35,24 @@ public class JoinRequest {
 	}
 	
 	public boolean isPasswordEqualToConfirm() {
-		return password != null && password.equals(confirmPassword);
+		return this.password != null && this.password.equals(this.confirmPassword);
 	}
 	
-	public void validate(Map<String,Boolean> errors) {
-		checkEmpty(errors, memberid, "memberid");
-		checkEmpty(errors, name, "name");
-		checkEmpty(errors, password, "password");
-		checkEmpty(errors, confirmPassword, "confirmPassword");
-		if(!errors.containsKey("confirmPassword")) {
-			if(!isPasswordEqualToConfirm()) {
-				errors.put("notMatch", Boolean.TRUE);
-			}
+	public void validate( Map<String, Boolean> errors) {
+		checkEmpty(errors, this.memberid, "memberid");
+		checkEmpty(errors, this.name, "name");
+		checkEmpty(errors, this.password, "password");
+		checkEmpty(errors, this.confirmPassword, "confirmPassword");
+		
+		if( !errors.containsKey("confirmPassword")  && !isPasswordEqualToConfirm()) {
+			errors.put("notMatch", true);
 		}
 	}
-	
-	private void checkEmpty(Map<String, Boolean> errors,String value,String fieldName) {
-		if(value == null||value.isEmpty()) {
-			errors.put(fieldName, Boolean.TRUE);
+
+	private void checkEmpty(Map<String, Boolean> errors, String value, String fieldName) {
+		if( value == null || value.isEmpty() ) {
+			errors.put(fieldName, true);
 		}
 	}
-	
-	
 }
+
