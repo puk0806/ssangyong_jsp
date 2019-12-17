@@ -38,10 +38,10 @@
 	<!-- 컨트롤러 서블릿 등록 -->
 	<servlet>
 		<servlet-name>ControllerUsingURI</servlet-name>
-		<servlet-class>days20.replyboard.controller.ControllerUsingURI</servlet-class>
+		<servlet-class>days18.mvc.controller.ControllerUsingURI</servlet-class>
 		<init-param>
 			<param-name>configFile</param-name>
-			<param-value>/WEB-INF/view/days20/commandHandlerURI.properties</param-value>
+			<param-value>/WEB-INF/view/days18/commandHandlerURI.properties</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>

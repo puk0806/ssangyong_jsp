@@ -1,4 +1,4 @@
-package days18.mvc.controller;
+package days20.replyboard.controller;
 
 
 import java.io.FileReader;
@@ -14,8 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import days18.mvc.command.CommandHandler;
-import days18.mvc.command.NullHandler;
+import days20.repllyboard.command.CommandHandler;
+import days20.repllyboard.command.NullHandler;
+
 
  
 
