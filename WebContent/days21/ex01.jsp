@@ -1,0 +1,72 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>chanho - 2019. 12. 18. 오전 9:05:30</title>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<style>
+</style>
+</head>
+<body>
+<!-- 
+	1. Ajax(Asynchronus Javascript And XML)
+		- JS를 이용한 비동기적 처리
+		- XML 데이터를 사용한 JS 비동기적 처리 방식
+		- Ajax 장점
+			ㄱ. 페이지 전체 이동없이 성능이 빠르다.
+			ㄴ. 서버 처리를 기다리지 않고 비동기 처리 요청이 가능(스레드)
+				(XMLHttpRequest 객체 == Ajax 처리 객체)
+			ㄷ. 서버 측 처리를 분산 처리 가능
+			ㄹ. 수신하는 데이터의 양이 줄어든다.
+		- Ajax 단점
+			ㄱ. JS  보안 X
+			ㄴ. 오픈 소스
+			ㄷ. 브라우저 호환 측면 고려
+		- Ajax 활용
+			ㄱ. 회원가입 (ID 중복체크)
+			ㄴ. 우편번호 검색
+		- Ajax 처리하는 방법
+			ㄱ. 브라우저 내장 + XMLHttpRequest 객체 얻어와야 한다.
+			ㄴ. 설정 : GET/POST 요청+파라미터
+			ㄷ. 실제 요청
+			ㄹ. callback 콜백 함수(요청 상태 결과 체크 한 후 처리)
+		- GET 방식 처리
+			ㄱ. XMLHttpRequest 객체
+			ㄴ. XMLHttpRequest 객체.open("GET","요청URL")
+				ex) XMLHttpRequest 객체.open("GET","/test.do?id=admin&name=hong",true)
+			ㄷ. XMLHttpRequest 객체.send()
+			ㄹ. 콜벡함수 호출 설정
+			
+		- POST 방식 처리
+			ㄱ. XMLHttpRequest 객체
+			ㄴ. XMLHttpRequest 객체.open("POST","요청URL")
+			ㄷ. XMLHttpRequest 객체.send("넘길 파라미터")
+				ex)XMLHttpRequest.send("id=admin&name=hong")
+			ㄹ. 콜벡함수 호출 설정
+		- 브라우저 별로 XMLHttpRequest 객체 얻어오는 방법
+			ㄱ. IE : 		new ActiveXObject("microsoft.XMLHTTP");
+			ㄴ. 그 외 브라우저 : 	new XMLHttpRequest();  
+			
+		- XMLHttpRequest 객체의 메소드
+			ㄱ. open()
+			ㄴ. send()
+			ㄷ. abort() : 요청 중단
+		- XMLHttpRequest 객체의 메소드
+			ㄱ. onreadystatechange 속성 : 요청 상태 변경이 발생할 때 마다 일어나는 이벤트를 처리하는 이벤트 핸들러를 등록한다.
+			ㄴ. readyState : 요청 객체의 상태 리턴
+			ㄷ. 	responseText : 서버에서 응답된 문자열
+				responseXML : 서버에서 응답된 XML
+				responseBody : 서버에서 응답된 이진데이터
+			ㄹ. status : 서버로 부터 응답받은 http상태 코드 (정수 리턴)
+			
+-->
+
+
+<script>
+$(function(){});
+</script>
+</body>
+</html>
