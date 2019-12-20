@@ -10,37 +10,27 @@
    Connection conn = null;
    PreparedStatement pstmt = null;
    ResultSet rs = null;
-   String sql = "select empno, ename, sal "
+   String searchWord = request.getParameter("searchWord");  // s
+   // emp 테이블에   ename       
+   
+   String sql = "select ename"
 			   + " from emp "
-			   + " order by sal desc";
-   // 자동으로 JSON객체 생성 라이브러리 사용
-   JSONObject jsonData = null;
-
-
-    
+			   + " where ename like '%"+ searchWord.toUpperCase()  +"%'"
+			   + " order by ename"; 
+   
+   //["JAMES","JONES","SMITH"]
+   JSONArray  jsonData = new JSONArray(); // ["","",""]
+		   
+   
    try{
      conn = ConnectionProvider.getConnection();
      pstmt = conn.prepareStatement(sql);
-     rs = pstmt.executeQuery();
+     rs = pstmt.executeQuery(); 
      
-   
-     
-     jsonData = new JSONObject();
-   
-     JSONArray empArray = new JSONArray();
-     while( rs.next() ){
-    	int empno = rs.getInt("empno");
-    	String ename = rs.getString("ename");
-		
-    	JSONObject emp = new JSONObject();
-    	emp.put("empno",empno);
-    	emp.put("ename",ename);
-    	
-    	empArray.add(emp);
+     while( rs.next() ){ 
+    	String ename = rs.getString("ename"); 
+    	jsonData.add(ename);
      }
-     
-     jsonData.put("emp",empArray);
-       
      
    }catch(Exception e){
 	   e.printStackTrace();
@@ -51,3 +41,7 @@
    }
 %>
 <%= jsonData %>
+
+
+
+
